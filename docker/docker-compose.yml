@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+
+  sql-updater:
+    image: sebczu/personal:sql-updater-0.0.1
+    container_name: sql-updater
+    environment:
+      - DATABASE_HOSTNAME=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_SCHEMA=example
+      - DATABASE_USERNAME=example
+      - DATABASE_PASSWORD=example
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - ./volumes:/docker-entrypoint-initdb.d
